@@ -2,21 +2,30 @@
 //
 
 #include <iostream>
+#include <sstream>
+
 using namespace std;
 
 /**********************************************************************
 * Add text here to describe what the function "main" does. Also don't forget
 * to fill this out with meaningful text or YOU WILL LOSE POINTS.
 ***********************************************************************/
-int getUserDNA()
+string getUserDNA()
 {
 	string myDNA;
 	cout << "Enter your DNA sequence: ";
-	cin >> myDNA;
+	getline(cin, myDNA);
 
-	return 0;
+	return myDNA;
 }
 
+int getUserDNA(string& myDNA)
+{
+	cout << "Enter your DNA sequence: ";
+	getline(cin, myDNA);
+	return 0;
+
+}
 /**********************************************************************
 * Add text here to describe what the function "main" does. Also don't forget
 * to fill this out with meaningful text or YOU WILL LOSE POINTS.
@@ -70,9 +79,12 @@ void percent(string myDNA, string relNames[], string relDNA[], int pots)
 
 int main()
 {
-	getUserDNA();
+	string userDNA;
+	userDNA = getUserDNA();
+	// or
+	getUserDNA(userDNA);
 	relativesDNA();
-	percent(myDNA, relNames, relDNA, pots);
+	percent(userDNA, relNames, relDNA, pots);
 
 	return 0;
 }
