@@ -73,16 +73,15 @@ void percent(int potentialRel, string userDNA, vector<RelativesDNA>& relatives)
 		int b = 0;
 		for (int a = 0; a < 10; a++)
 		{
-			if (userDNA[a] == relatives.m_dna[i][a])
+			if (userDNA[a] == relatives[i].m_dna[a])
 				b++;
 		}
-		cout << "Percent Match for " << relatives.m_name[i] << ": ";
+		cout << "Percent Match for " << relatives[i].m_name << ": ";
 		cout << b * 10 << "%" << endl;
 	}
 
 	return;
 }
-
 
 int main()
 {
@@ -92,8 +91,8 @@ int main()
 	vector<RelativesDNA> relatives;
 	getUserDNA(userDNA);
 	int potentialRel = getRelativesDNA(relatives);
-#if 0
-	percent();
-#endif
+
+	percent(potentialRel, userDNA, relatives);
+
 	return 0;
 }
