@@ -1,6 +1,7 @@
 // DNA Assignment.cpp : Defines the entry point for the application.
-//
 
+
+#include "stdafx.h"
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -12,23 +13,16 @@ public:
 	string m_name;
 	string m_dna;
 };
+
 /**********************************************************************
 * Add text here to describe what the function "main" does. Also don't forget
 * to fill this out with meaningful text or YOU WILL LOSE POINTS.
 ***********************************************************************/
-string getUserDNA()
-{
-	string myDNA;
-	cout << "Enter your DNA sequence: ";
-	getline(cin, myDNA);
 
-	return myDNA;
-}
-
-int getUserDNA(string& myDNA)
+int getUserDNA(string& userDNA)
 {
 	cout << "Enter your DNA sequence: ";
-	getline(cin, myDNA);
+	getline(cin, userDNA);
 	return 0;
 
 }
@@ -36,18 +30,22 @@ int getUserDNA(string& myDNA)
 * Add text here to describe what the function "main" does. Also don't forget
 * to fill this out with meaningful text or YOU WILL LOSE POINTS.
 ***********************************************************************/
+//<<<<<<< Updated upstream
 // This function asks the user for the number of relatives and gets their names and dna sequence
-int relativesDNA(vector<RelativesDNA>& relatives)
+//int relativesDNA(vector<RelativesDNA>& relatives)
+//=======
+
+int getRelativesDNA(vector<RelativesDNA>& relatives)
+//>>>>>>> Stashed changes
 {
-//	string relNames[50];
-//	string relDNA[50];
-	int pots; // number of relatives
+
+	int potentialRel; // number of relatives
 	cout << "Enter the number of potential relatives: ";
-	cin >> pots;
+	cin >> potentialRel;
 	cout << endl;
 	RelativesDNA relative; 
 
-	for (int i = 0; i < pots; i++)
+	for (int i = 0; i < potentialRel; i++)
 	{
 		cout << "Please enter the name of relative #" << i + 1 << ": ";
 		cin >> relative.m_name;
@@ -56,7 +54,7 @@ int relativesDNA(vector<RelativesDNA>& relatives)
 
 	cout << endl;
 
-	for (int a = 0; a < pots; a++)
+	for (int a = 0; a < potentialRel; a++)
 	{
 		cout << "Please enter the DNA sequence for " << relatives[a].m_name << ": ";
 		cin >> relatives[a].m_dna;
@@ -64,21 +62,21 @@ int relativesDNA(vector<RelativesDNA>& relatives)
 	} // end for - get all the dna sequences for the relatives
 	cout << endl;
 
-	return 0;
+	return potentialRel;
 } // end of function - relativesDNA
 
 
-void percent(string myDNA, string relNames[], string relDNA[], int pots)
+void percent(int potentialRel, string userDNA, vector<RelativesDNA>& relatives)
 {
-	for (int i = 0; i < pots; i++)
+	for (int i = 0; i < potentialRel; i++)
 	{
 		int b = 0;
 		for (int a = 0; a < 10; a++)
 		{
-			if (myDNA[a] == relDNA[i][a])
+			if (userDNA[a] == relatives.m_dna[i][a])
 				b++;
 		}
-		cout << "Percent Match for " << relNames[i] << ": ";
+		cout << "Percent Match for " << relatives.m_name[i] << ": ";
 		cout << b * 10 << "%" << endl;
 	}
 
@@ -88,14 +86,14 @@ void percent(string myDNA, string relNames[], string relDNA[], int pots)
 
 int main()
 {
+
 	string userDNA;
+
 	vector<RelativesDNA> relatives;
-	userDNA = getUserDNA();
-	// or
 	getUserDNA(userDNA);
-	relativesDNA(relatives);
+	int potentialRel = getRelativesDNA(relatives);
 #if 0
-	percent(userDNA, relNames, relDNA, pots);
+	percent();
 #endif
 	return 0;
 }
