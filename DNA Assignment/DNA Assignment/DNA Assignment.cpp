@@ -18,20 +18,29 @@ public:
 };
 
 /**********************************************************************
-* getUserDNA asks the user for their DNA strand and will reprompt if more 
-* or less than 10 letters. 
+* getDNA asks the user for their DNA strand and will reprompt if more 
+* or less than 10 letters. Also will reprompt if not using A,C,G,T. 
 ***********************************************************************/
-void getUserDNA(string& userDNA)
+string getDNA()
 {
-	cout << "Enter your DNA sequence: ";
-	getline(cin, userDNA);
-	while (userDNA.length != 10)
+	string inputDNA;
+	cin >> inputDNA;
+	while (inputDNA.length() != 10 || inputDNA.find_first_not_of("ACGT") != string::npos)
 	{
-		cout << "Enter your 10 letter DNA sequence: ";
-		getline(cin, userDNA);
+		if (inputDNA.length() != 10)
+		{
+			cout << "Enter your 10 letter DNA sequence: ";
+			cin >> inputDNA;
+		}
+		else
+		{
+			cout << "Enter you DNA sequence only using A,C,G,T: ";
+			cin >> inputDNA;
+		} // end else - if they dont use ACGT
 	} // end while - will reprompt if more or less than 10 letters. 
-	return;
+	return inputDNA;
 }
+
 /**********************************************************************
 * Asks the user for the number of potential relatives. Returns that
 * number to main. Also asks for the names of the relatives and thier 
@@ -63,15 +72,8 @@ int getRelativesDNA(vector<RelativesDNA>& relatives)
 	for (int a = 0; a < potentialRel; a++)
 	{
 		cout << "Please enter the DNA sequence for " << relatives[a].m_name << ": ";
-		cin >> relatives[a].m_dna;
-		while (relatives[a].m_dna.length != 10)
-		{
-			cout << "Please enter the 10 letter DNA sequence for " << relatives[a].m_name << ": ";
-			cin >> relatives[a].m_dna;
-		} // end while - asks the user for new input if does not ten letters.
-		
+		relatives[a].m_dna = getDNA();
 
-		
 	} // end for - get all the dna sequences for the relatives
 	cout << endl;
 
@@ -95,9 +97,6 @@ void percent(int potentialRel, string userDNA, vector<RelativesDNA>& relatives)
 		cout << "Percent Match for " << relatives[i].m_name << ": ";
 		cout << b * 10 << "%" << endl;
 	}
-
-	int pause;
-	cin >> pause;
 	return;
 }
 
@@ -107,11 +106,10 @@ void percent(int potentialRel, string userDNA, vector<RelativesDNA>& relatives)
 ***********************************************************************/
 int main()
 {
-
-	string userDNA;
+	cout << "Enter your DNA sequence: ";
+	string userDNA = getDNA();
 
 	vector<RelativesDNA> relatives;
-	getUserDNA(userDNA);
 	int potentialRel = getRelativesDNA(relatives);
 
 	percent(potentialRel, userDNA, relatives);
