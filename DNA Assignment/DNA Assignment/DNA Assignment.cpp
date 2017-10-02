@@ -93,10 +93,10 @@ void percent(int potentialRel, string userDNA, vector<RelativesDNA>& relatives)
 		{
 			if (userDNA[a] == relatives[i].m_dna[a])
 				b++;
-		}
+		} // end for - checks each letter for same output
 		cout << "Percent Match for " << relatives[i].m_name << ": ";
 		cout << b * 10 << "%" << endl;
-	}
+	} // end for - 
 	return;
 }
 
