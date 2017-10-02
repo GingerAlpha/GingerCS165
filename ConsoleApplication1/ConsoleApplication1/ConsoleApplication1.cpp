@@ -28,7 +28,7 @@ void getInput(long& startTime, long& endTime)
 	return;
 }
 
-void readFile(timeStamp &fileOutput[])
+void readFile(timeStamp& fileOutput[])
 {
 	string recordFile;
 	cout << "Enter the access record file: ";
@@ -54,14 +54,20 @@ void readFile(timeStamp &fileOutput[])
 	return;
 }
 
-void display()
+void display(long startTime, long endTime, timeStamp fileOutput[])
 {
 	cout << "The following records match your criteria: " << endl;
 	cout << endl;
 	cout << setw(15) << "Timestamp" << setw(20) << "File";
 	cout << setw(20) << "User" << endl;
 	cout << "--------------- ------------------- -------------------" << endl;
-
+	for (int i = 0; fileOutput[i].time >= startTime && fileOutput[i].time <= endTime; i++)
+	{
+		cout << setw(15) << fileOutput[i].time;
+		cout << setw(20) << fileOutput[i].filename;
+		cout << setw(20) << fileOutput[i].username;
+		cout << endl;
+	} // end for - will output the time, file and user between the given times.
 
 
 	cout << "End of records" << endl;
